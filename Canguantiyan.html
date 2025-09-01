@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云端葛隆村 · 沉浸式体验入口</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: '微软雅黑', 'Heiti SC', 'Arial', sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .left {
+            flex: 1;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .left img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        .right {
+            flex: 1.2;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 48px 48px 48px;
+            box-sizing: border-box;
+        }
+        .title {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #2d4c2a;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+        .desc {
+            font-size: 1.18em;
+            color: #444;
+            line-height: 2.1;
+            margin-bottom: 40px;
+            white-space: pre-line;
+        }
+        .btn {
+            display: block;
+            margin: 0 auto;
+            padding: 12px 32px;
+            font-size: 1em;
+            font-family: 'Smiley Sans', 'Source Han Sans SC', '思源黑体', '站酷庆科黄油体', '微软雅黑', 'Heiti SC', 'Arial', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(90deg, #4fd1c5 0%, #38a169 100%);
+            border: none;
+            border-radius: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(79,209,197,0.18), 0 0 0 4px rgba(56,161,105,0.08);
+            transition: background 0.25s, transform 0.18s, box-shadow 0.18s;
+            text-decoration: none;
+            letter-spacing: 2px;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            min-width: 120px;
+            max-width: 220px;
+            text-align: center;
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.18);
+            border-radius: 100%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            z-index: 0;
+        }
+        .btn:hover {
+            background: linear-gradient(90deg, #38a169 0%, #4fd1c5 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 32px rgba(56,161,105,0.18), 0 0 0 8px rgba(79,209,197,0.10);
+        }
+        .btn:active::after {
+            width: 180%;
+            height: 180%;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .left, .right {
+                flex: unset;
+                width: 100%;
+                min-height: 320px;
+            }
+            .right {
+                padding: 32px 16px 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="canguan1.webp" alt="葛隆村体验入口图片">
+        </div>
+        <div class="right">
+            <div class="title">🌿 云端葛隆村 · 沉浸式体验入口</div>
+            <div class="desc">
+不必远行，指尖轻触，即刻踏入这座藏于江南烟雨中的古村落——葛隆村。
+
+这里的青石板路会随你的脚步泛起温润光泽，百年老宅的木窗棂间漏下斑驳光影，仿佛能听见旧时巷弄里的叫卖声穿堂而过。点击屏幕，你可以推开吱呀作响的木门，看天井里的青苔爬过石阶；凑近百年银杏，听风吹叶动的簌簌声漫过白墙黑瓦；漫步古桥之上，看溪水载着落花流向远方。
+
+无论是清晨薄雾中的祠堂飞檐，还是暮色里亮起灯笼的老街，每一帧都是葛隆村最本真的模样。无需顾虑天气与行程，在这里，你可以慢慢走，细细看，让时光跟着青砖黛瓦的节奏流淌，感受古村落里藏了百年的宁静与生机。
+
+现在，就随我们一起，开启这场足不出户的葛隆村漫游吧。
+            </div>
+            <a class="btn" href="1.html" >进入体验</a>
+        </div>
+    </div>
+</body>
+</html>
