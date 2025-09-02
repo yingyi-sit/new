@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>葛隆村 - 传承千年文化，体验美丽乡村</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-decoration: none;
+            font-family: 'STKaiti', 'KaiTi', '楷体', '华文楷体', serif;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+            letter-spacing: 0.15em;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+        }
+
+        /* 轮播图样式 */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 2;
+        }
+
+        .slide-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-family: 'STKaiti', 'KaiTi', '楷体', '华文楷体', serif;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        .slide-content p {
+            font-size: 1.5rem;
+            margin-bottom: 6rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            font-family: 'STSong', 'SimSun', '宋体', '华文宋体', serif;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            font-family: 'STKaiti', 'KaiTi', '楷体', '华文楷体', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* 轮播图导航按钮 */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 1rem;
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .prev {
+            left: 2rem;
+        }
+
+        .next {
+            right: 2rem;
+        }
+
+        .prev:hover, .next:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* 轮播图指示器 */
+        .dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 3;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #ffd700;
+        }
+
+        /* 功能区域样式 */
+        .features-section {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #e8e8e8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .feature-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .feature-content p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* 默认隐藏 */
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background: rgba(255,255,255,0.92);
+                border-radius: 10px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+                padding: 1rem 2rem;
+                gap: 1.2rem;
+                z-index: 2000;
+            }
+            .nav-menu.show {
+                display: flex; /* 显示菜单 */
+            }
+            .nav-menu a {
+                color: #333;
+            }
+            .nav-menu a:hover {
+                color: #2d6a4f;
+            }
+            .nav-menu li {
+                margin: 0;
+                text-align: right;
+            }
+            .nav-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 2rem;
+                cursor: pointer;
+                margin-left: 1rem;
+                z-index: 2001;
+            }
+            .nav-container {
+                position: relative;
+            }
+
+            .slide-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide-content p {
+                font-size: 1.2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prev, .next {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .prev {
+                left: 1rem;
+            }
+
+            .next {
+                right: 1rem;
+            }
+        }
+
+        /* 页面加载动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .features-section {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #fff;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-label {
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        .contact-email {
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .footer-section p {
+            color: #bdc3c7;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 1rem;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式页脚 */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-item {
+                justify-content: center;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">葛隆村</a>
+            <button class="nav-toggle" aria-label="展开菜单" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="Ge.html">首页</a></li>
+                <li><a href="Guanyugelong.html">关于葛隆</a></li>
+                <li><a href="Jingdianjieshao.html">景点介绍</a></li>               
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 轮播图区域 -->
+    <div class="slideshow-container" id="home">
+        <div class="slide active">
+            <img src="zhuye1.webp" alt="葛隆村风景1">
+            <div class="slide-content">
+                <h1>欢迎来到葛隆村</h1>
+                <p>传承千年文化，体验美丽乡村</p>
+                <a href="#features" class="cta-button">了解更多</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="zhuye6.webp" alt="葛隆村风景2">
+            <div class="slide-content">
+                <h1>自然风光</h1>
+                <p>青山绿水，田园风光</p>
+                <a href="#features" class="cta-button">探索美景</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="zhuye3.webp" alt="葛隆村风景3">
+            <div class="slide-content">
+                <h1>文化传承</h1>
+                <p>深厚的历史文化底蕴</p>
+                <a href="#features" class="cta-button">感受文化</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="zhuye5.webp" alt="葛隆村风景4">
+            <div class="slide-content">
+                <h1>美丽乡村</h1>
+                <p>现代化与传统的完美结合</p>
+                <a href="#features" class="cta-button">体验乡村</a>
+            </div>
+        </div>
+
+        
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+
+        
+        <div class="dots">
+            <span class="dot active" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+
+    
+    <section class="features-section" id="features">
+        <div class="features-container">
+            <h2 class="section-title">探索葛隆村</h2>
+            <p class="section-subtitle">发现美丽乡村的独特魅力，体验传统文化与现代生活的完美融合</p>
+            <div class="features-grid">
+                <div class="feature-card" onclick="location.href='Lishiwenhua.html'" >
+                    <div class="feature-icon">🏛️</div>
+                    <div class="feature-content">
+                        <h3>历史文化</h3>
+                        <p>探索葛隆村深厚的历史文化底蕴，了解传统建筑和文物古迹</p>
+                        <div class="feature-tag">文化传承</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="location.href='Ziranfengguang.html'">
+                    <div class="feature-icon">🏔️</div>
+                    <div class="feature-content">
+                        <h3>自然风光</h3>
+                        <p>欣赏葛隆村美丽的自然景观，感受青山绿水的田园风光</p>
+                        <div class="feature-tag">生态美景</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="location.href='Minsuhuodong.html'">
+                    <div class="feature-icon">🎭</div>
+                    <div class="feature-content">
+                        <h3>民俗活动</h3>
+                        <p>体验丰富多彩的民俗文化活动，感受传统文化的魅力</p>
+                        <div class="feature-tag">传统节日</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="location.href='Meishitechan.html'">
+                    <div class="feature-icon">🍜</div>
+                    <div class="feature-content">
+                        <h3>美食特产</h3>
+                        <p>品尝葛隆村特色美食和农产品，体验地道的乡村味道</p>
+                        <div class="feature-tag">地方特色</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="location.href='Jiaotongzhinan.html'">
+                    <div class="feature-icon">🗺️</div>
+                    <div class="feature-content">
+                        <h3>交通指南</h3>
+                        <p>了解如何到达葛隆村的详细信息，规划您的完美旅程</p>
+                        <div class="feature-tag">出行攻略</div>
+                    </div>
+                </div>
+
+                <div class="feature-card" onclick="location.href='Canguantiyan.html'">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-content">
+                        <h3>参观体验</h3>
+                        <p>深入了解葛隆村的发展历程，体验现代化美丽乡村建设成果</p>
+                        <div class="feature-tag">乡村建设</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚联系方式 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-label">宣传负责人：</span>
+                            <span class="contact-email">zxinyu285@163.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">技术顾问：</span>
+                            <span class="contact-email">19145544144@163.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>葛隆村</h3>
+                    <p>传承千年文化，体验美丽乡村</p>
+                    <p>欢迎您的到来</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 葛隆村. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        // 自动轮播
+        setInterval(function() {
+            changeSlide(1);
+        }, 5000);
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].classList.add("active");
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+            }
+        });
+
+        // 移动端菜单展开/收起
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('show');
+        }
+
+        // 点击菜单后自动收起（移动端体验优化）
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    document.getElementById('navMenu').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
